@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% load tags %}
+
+{% block title %}
+Results
+{% endblock title %}
+
+{% block style %}
+<style>
+
+</style>
+{% endblock style %}
+
+{% block content %}
+
+<h3>Метод Ньютона:</h3>
+<table class="table table-striped table-dark"
+style="text-align: center;">
+<thead class="thead-dark">
+<tr>
+    <th scope="col">k</th>
+    <th scope="col">
+        x(k)
+    </th>
+    <th scope="col">
+        f(xk)
+    </th>
+    <th scope="col">
+        df(xk)
+    </th>
+    <th scope="col">
+        -f(xk)/df(xk)
+    </th>
+</tr>
+</thead>
+<tbody>
+    {% for x in newtone_x_list %}
+        <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>
+            {{ x }}
+        </td>
+        <td>
+            {% if not forloop.last %}
+                {% get_value_from_list newtone_f_list forloop.counter0 %}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        <td>
+            {% if not forloop.last %}
+                {% get_value_from_list newtone_df_list forloop.counter0 %}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        <td>
+            {% if not forloop.last %}
+                {% get_value_from_list newtone_mf_list forloop.counter0 %}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+
+<h3>Итерационный метод:</h3>
+<table class="table table-striped table-dark"
+style="text-align: center;">
+<thead class="thead-dark">
+<tr>
+    <th scope="col">k</th>
+    <th scope="col">
+        x(k)
+    </th>
+    <th scope="col">
+        &#966;(x(k))
+    </th>
+</tr>
+</thead>
+<tbody>
+    {% for x in iter_x_list %}
+        <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>
+            {{ x }}
+        </td>
+        <td>
+            {% if not forloop.last %}
+                {% get_value_from_list iter_phi_list forloop.counter0 %}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+{% endblock content %}

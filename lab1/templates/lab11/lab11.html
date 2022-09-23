@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}
+1.1
+{% endblock title %}
+
+{% block style %}
+<style>
+    .content {
+        width: 1000px;
+    }
+
+    .matrix-field {
+        margin-left: 220px;
+    }
+</style>
+{% endblock style %}
+
+{% block menu %}
+<form action="{% url '11' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="size"
+        {% if size_error_empty %}
+            style="color: red;"
+        {% endif %}
+        placeholder="Enter your matrix size"
+        value="{{ saved_size }}">
+    <button type="submit" class="btn btn-primary">Calculate</button>
+</form>
+{% endblock menu %}
+
+{% block content %}
+
+<h3>Реализовать алгоритм LU -  разложения матриц</h3>
+Реализовать алгоритм LU -  разложения матриц (с выбором главного элемента) в виде программы. Используя разработанное программное обеспечение, решить систему линейных алгебраических уравнений (СЛАУ). Для матрицы СЛАУ вычислить определитель и обратную матрицу.
+
+{% endblock content %}

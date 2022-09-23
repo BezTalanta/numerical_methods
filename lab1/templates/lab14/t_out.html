@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+Error
+{% endblock title %}
+
+{% block style %}
+
+{% endblock style %}
+
+{% block content %}
+<h3>Количество итераций превысило значение 50, для отладки представлен вывод t:</h3>
+<table class="table table-striped table-dark"
+style="text-align: center;">
+<thead class="thead-dark">
+<tr>
+    <th scope="col">№</th>
+    <th scope="col">
+        t
+    </th>
+</tr>
+</thead>
+<tbody>
+    {% for t in list_t %}
+        <tr>
+            <th scope="row">
+                {{ forloop.counter }}
+            </th>
+            <td>
+                {{ t }}
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+{% endblock content %}

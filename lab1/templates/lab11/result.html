@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% load tags %}
+
+{% block title %}
+Your result
+{% endblock title %}
+
+{% block style %}
+<style>
+    .simple-matrix {
+        overflow-x: auto;
+        overflow-y: auto;
+        height: auto;
+        width: 100%;
+        white-space: nowrap;
+        padding: 15px;
+    }
+</style>
+{% endblock style %}
+
+{% block content %}
+
+{% with 10 as sz %}
+    <h3>Исходная матрица Ab:</h3>
+    <div class="simple-matrix">
+        {% for row in matrix_a.data %}
+            {% for col in row %}
+                {% if forloop.first %}
+                    <input size="{{sz}}" type="text" value="{{ col }}" readonly>
+                {% else %}
+                    + <input size="{{sz}}" type="text" value="{{ col }}" readonly>
+                {% endif %}
+            {% endfor %}
+
+            {% if matrix_ab %}
+                = <input size="{{sz}}" type="text" value="{% get_value 'matrix_ab' forloop.counter0 0 %}">
+            {% endif %}
+            <br>
+        {% endfor %}
+    </div>
+
+    det(A) = <input type="text" name="" id="" value="{{ det }}" readonly>
+
+    <h3>Обратная матрица А:</h3>
+    <div class="simple-matrix">
+        {% for row in inv.data %}
+            {% for col in row %}
+                {% if forloop.first %}
+                    <input size="{{sz}}" type="text" value="{{ col }}" readonly>
+                {% else %}
+                    + <input size="{{sz}}" type="text" value="{{ col }}" readonly>
+                {% endif %}
+            {% endfor %}
+            <br>
+        {% endfor %}
+    </div>
+
+    <h3>Полученная матрица L:</h3>
+    <div class="simple-matrix">
+        {% for row in matrix_l.data %}
+            {% for col in row %}
+                {% if forloop.first %}
+                    <input size="{{sz}}" type="text" value="{{ col }}" readonly>
+                {% else %}
+                    + <input size="{{sz}}" type="text" value="{{ col }}" readonly>
+                {% endif %}
+            {% endfor %}
+            <br>
+        {% endfor %}
+    </div>
+
+    <h3>Полученная матрица U:</h3>
+    <div class="simple-matrix">
+        {% for row in matrix_u.data %}
+            {% for col in row %}
+                {% if forloop.first %}
+                    <input size="{{sz}}" type="text" value="{{ col }}" readonly>
+                {% else %}
+                    + <input size="{{sz}}" type="text" value="{{ col }}" readonly>
+                {% endif %}
+            {% endfor %}
+            <br>
+        {% endfor %}
+    </div>
+
+    <h3>Полученные результаты x:</h3>
+    <div class="simple-matrix">
+        {% for row in matrix_x.data %}
+            {% for col in row %}
+                {% if forloop.first %}
+                    <input size="{{sz}}" type="text" value="{{ col }}" readonly>
+                {% else %}
+                    + <input size="{{sz}}" type="text" value="{{ col }}" readonly>
+                {% endif %}
+            {% endfor %}
+            <br>
+        {% endfor %}
+    </div>
+{% endwith %}
+{% endblock content %}

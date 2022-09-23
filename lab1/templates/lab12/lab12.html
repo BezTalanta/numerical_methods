@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+1.2
+{% endblock title %}
+
+{% block style %}
+<style>
+
+</style>
+{% endblock style %}
+
+{% block menu %}
+<form action="{% url '12' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="size" placeholder="Enter your matrix size">
+    <button type="submit" class="btn btn-primary">Calculate</button>
+</form>
+{% endblock menu %}
+
+{% block content %}
+<h3>Реализовать метод прогонки в виде программы</h3>
+Реализовать метод прогонки в виде программы, задавая в качестве входных данных ненулевые элементы матрицы системы и вектор правых частей. Используя разработанное программное обеспечение, решить СЛАУ с трехдиагональной матрицей.
+{% endblock content %}

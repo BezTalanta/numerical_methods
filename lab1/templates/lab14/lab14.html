@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}
+1.4
+{% endblock title %}
+
+{% block style %}
+<style>
+
+</style>
+{% endblock style %}
+
+{% block menu %}
+<form action="{% url '14' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="size"
+        {% if size_error_empty %}
+            style="color: red;"
+        {% endif %}
+        placeholder="Enter your matrix size"
+        value="{{ saved_size }}">
+    <input type="text" name="precision"
+        {% if precision_error_empty %}
+            style="color: red;"
+        {% endif %}
+        placeholder="Enter precision"
+        value="{{ saved_precision }}">
+    <button type="submit" class="btn btn-primary">Calculate</button>
+</form>
+{% endblock menu %}
+
+{% block content %}
+<h3>Реализовать метод вращений в виде программы, задавая в качестве входных данных матрицу и точность вычислений</h3>
+Реализовать метод вращений в виде программы, задавая в качестве входных данных матрицу и точность вычислений. Используя разработанное программное обеспечение, найти собственные значения и собственные векторы симметрических матриц. Проанализировать зависимость погрешности вычислений от числа итераций.
+{% endblock content %}

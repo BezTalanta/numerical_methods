@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% load tags %}
+
+{% block title %}
+Your result
+{% endblock title %}
+
+{% block style %}
+<style>
+</style>
+{% endblock style %}
+
+{% block content %}
+
+{% with 10 as sz %}
+    <h3>Исходная матрица:</h3>
+    <div class="simple-matrix">
+        {% for row in matrix_a.data %}
+            {% for col in row %}
+                {% if forloop.first %}
+                    <input size="{{sz}}" type="text" value="{{ col }}" readonly>
+                {% else %}
+                    + <input size="{{sz}}" type="text" value="{{ col }}" readonly>
+                {% endif %}
+            {% endfor %}
+
+            {% if matrix_ab %}
+                = <input size="{{sz}}" type="text" value="{% get_value 'matrix_ab' forloop.counter0 0 %}">
+            {% endif %}
+            <br>
+        {% endfor %}
+    </div>
+
+    <h3>Полученные матрицы U и A:</h3>
+    <table class="table table-striped table-dark"
+        style="text-align: center;">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">№</th>
+            <th scope="col"
+                style="max-width: fit-content; min-width: 200px;">
+                U(k)
+            </th>
+            <th scope="col">A(k)</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for U in list_U %}
+                <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>
+                {% if not forloop.last %}
+                    {% for rows in U.data %}
+                        {% for col in rows %}
+                            {{ col }}
+                        {% endfor %}
+                        <br>
+                    {% endfor %}
+                    </td>
+                {% else %}
+                    -
+                {% endif %}
+
+                <td>
+                    {% get_value_from_list list_A forloop.counter0 as mat_a %}
+                    {% for rows in mat_a.data %}
+                        {% for col in rows %}
+                            {{ col }}
+                        {% endfor %}
+                        <br>
+                    {% endfor %}
+                </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Собственные значения и собственные векторы:</h3>
+    <table class="table table-striped table-dark"
+        style="text-align: center;">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">№</th>
+            <th scope="col">
+                &#955;
+            </th>
+            <th scope="col">
+                x
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for lambda in list_lambda %}
+                <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>
+                    &#8776;{{ lambda }}
+                </td>
+                <td>
+                    {% get_value_from_list own_vectors forloop.counter0 as own_vector %}
+                    {% for rows in own_vector.data %}
+                        {{ rows.0 }}
+                        <br>
+                    {% endfor %}
+                </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endwith %}
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+2.1
+{% endblock title %}
+
+{% block style %}
+<style>
+
+</style>
+{% endblock style %}
+
+{% block content %}
+<h3>Реализовать методы простой итерации и Ньютона решения нелинейных уравнений в виде программ</h3>
+Реализовать методы простой итерации и Ньютона решения нелинейных уравнений в виде программ, задавая в качестве входных данных точность вычислений. С использованием разработанного программного обеспечения найти положительный корень нелинейного уравнения (начальное приближение определить графически). Проанализировать зависимость погрешности вычислений от количества итераций.
+{% endblock content %}
+
+{% block menu %}
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="precision"
+        {% if precision_error_empty %}
+            style="color: red;"
+        {% endif %}
+        placeholder="Enter precision"
+        value="{{ saved_precision }}">
+    <button type="submit" class="btn btn-primary">Calculate</button>
+</form>
+{% endblock menu %}

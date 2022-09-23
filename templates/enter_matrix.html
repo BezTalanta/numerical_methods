@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% load tags %}
+
+{% block title %}
+Enter your matrix
+{% endblock title %}
+
+{% block style %}
+
+{% endblock style %}
+
+{% block content %}
+
+<h2>Enter your matrix: </h2> <br>
+
+<form action="{{next_url}}" method="post">
+    {% csrf_token %}
+    <div class="simple-matrix">
+    {% with 5 as sz %}
+    {% for row in rows %}
+        {% for col in cols %}
+            {% if col == 0 %}
+                <input size="{{sz}}" type="text" name="{{row}}x{{col}}"
+                    value="{% fill_matrix row 'x' col %}">
+                    x{{row}}{{col}}
+            {% else %}
+                + <input size="{{sz}}" type="text" name="{{row}}x{{col}}"
+                    value="{% fill_matrix row 'x' col %}">
+                    x{{row}}{{col}}
+            {% endif %}
+        {% endfor %}
+
+        {% if b_is_required %}
+            = <input size="{{sz}}" type="text" name="b{{row}}"
+                placeholder="b{{row}}" value="{% fill_matrix row 'b' 0 %}">
+        {% endif %}
+        <br>
+    {% endfor %}
+    </div>
+
+    <br>
+    <button type="submit" class="btn btn-primary" style="margin-left: 13%; width: 300px;">
+        Calculate
+    </button>
+</form>
+{% endwith %}
+
+{% endblock content %}

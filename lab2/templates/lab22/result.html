@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% load tags %}
+
+{% block title %}
+Results
+{% endblock title %}
+
+{% block style %}
+<style>
+
+</style>
+{% endblock style %}
+
+{% block content %}
+
+<h3>Метод Ньютона:</h3>
+<table class="table table-striped table-dark"
+style="text-align: center;">
+<thead class="thead-dark">
+<tr>
+    <th scope="col">k</th>
+    <th scope="col">
+        x1(k) <br>
+        x2(k)
+    </th>
+    <th scope="col">
+        f1(x1(k), x2(k)) <br>
+        f2(x1(k), x2(k))
+    </th>
+    <th scope="col">
+        dfx1(x1&2k)
+    </th>
+    <th scope="col">
+        dfx2(x1&2k)
+    </th>
+    <th scope="col">
+        det A1(k)
+    </th>
+    <th scope="col">
+        det A2(k)
+    </th>
+    <th scope="col">
+        det J(k)
+    </th>
+</tr>
+</thead>
+<tbody>
+    {% for x in newtone_x_list %}
+        <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>
+            {{ x.0 }} <br>
+            {{ x.1 }}
+        </td>
+        <td>
+            {% if not forloop.last %}
+                {% get_value_from_list newtone_f_list forloop.counter0 as l %}
+                {{ l.0 }} <br>
+                {{ l.1 }}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        <td>
+            {% if not forloop.last %}
+                {% get_value_from_list newtone_dfx_list forloop.counter0 as l %}
+                {{ l.0 }} <br>
+                {{ l.1 }}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        <td>
+            {% if not forloop.last %}
+                {% get_value_from_list newtone_dfy_list forloop.counter0 as l %}
+                {{ l.0 }} <br>
+                {{ l.1 }}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        <td>
+            {% if not forloop.last %}
+                {% get_value_from_list newtone_deta1_list forloop.counter0 %}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        <td>
+            {% if not forloop.last %}
+                {% get_value_from_list newtone_deta2_list forloop.counter0 %}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        <td>
+            {% if not forloop.last %}
+                {% get_value_from_list newtone_detj_list forloop.counter0 %}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+
+<h3>Итерационный метод:</h3>
+<table class="table table-striped table-dark"
+style="text-align: center;">
+<thead class="thead-dark">
+<tr>
+    <th scope="col">k</th>
+    <th scope="col">
+        x1(k) <br>
+        x2(k)
+    </th>
+    <th scope="col">
+        &#966;1(x1&2(k))<br>
+        &#966;2(x1&2(k))
+    </th>
+</tr>
+</thead>
+<tbody>
+    {% for x in iter_x_list %}
+        <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>
+            {{ x.0 }} <br>
+            {{ x.1 }}
+        </td>
+        <td>
+            {% if not forloop.last %}
+                {% get_value_from_list iter_phi_list forloop.counter0 as l %}
+                {{ l.0 }}<br>
+                {{ l.1 }}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+{% endblock content %}
