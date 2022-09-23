@@ -11,4 +11,5 @@ urlpatterns = [
 ]
 
 handler500 = 'errors.views.server_error'
-hadnler404 = 'errors.views.not_found'
+handler404 = 'errors.views.not_found'
+handler400 = 'errors.views.e404'
