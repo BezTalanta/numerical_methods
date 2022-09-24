@@ -12,4 +12,4 @@ urlpatterns = [
 
 handler500 = 'errors.views.server_error'
 handler404 = 'errors.views.not_found'
-handler400 = 'errors.views.e404'
+handler400 = 'errors.views.e400'
