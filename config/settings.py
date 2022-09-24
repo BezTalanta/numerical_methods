@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-g0pyi+8==mod%d6d$5m&6ja7@a*ey$tdb4!t@c(0m(^ik68lh#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', 'https://numerical-methods-by-andrey.herokuapp.com/']
+ALLOWED_HOSTS = ['localhost', 'numerical-methods-by-andrey.herokuapp.com', '.numerical-methods-by-andrey']
 
 
 # Application definition
