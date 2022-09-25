@@ -42,8 +42,8 @@
             background-color: gray;
             border: 2px solid rgb(85, 84, 84);
             border-radius: 10px;
-            width: 1000px;
-            min-height: 850px;
+            width: 1130px;
+            min-height: 930px;
             max-height: fit-content;
             position: absolute;
             left: 350px;
@@ -132,7 +132,7 @@
                 3
               </button>
               <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1">
-                <a class="dropdown-item" href="#">3.1</a>
+                <a class="dropdown-item" href="{% url '31' %}">3.1</a>
                 <a class="dropdown-item" href="#">3.2</a>
                 <a class="dropdown-item" href="#">3.3</a>
                 <a class="dropdown-item" href="#">3.4</a>
@@ -144,11 +144,19 @@
 
     <div class="content">
         {% block content %}
-            Выберите вариант лабораторной работы из списка слева <br>
+            <h2 style="text-align: center;">
+              Выберите вариант лабораторной работы из списка слева
+            </h2>
 
-            М8О-406Б-19 <br>
-            Уваров Андрей Павлович <br>
-        {% endblock content %}
+            <div style="margin-top: 70%;">
+              <h4>
+                Группа: М8О-406Б-19
+              </h4>
+              <h4>
+                ФИО: Уваров Андрей Павлович
+              </h4>
+            </div>
+          {% endblock content %}
     </div>
 
     <div class="navbar-right">

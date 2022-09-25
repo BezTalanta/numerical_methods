@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+
+{% load tags %}
+
+{% block title %}
+3.1
+{% endblock title %}
+
+{% block style %}
+<style>
+
+</style>
+{% endblock style %}
+
+{% block content %}
+<h3>Метод Лагранжа (а):</h3>
+<table class="table table-striped table-dark"
+style="text-align: center;">
+<thead class="thead-dark">
+<tr>
+    <th scope="col">i</th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        x(i)
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        f(i)
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        w4(xi)
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        fi/w4(xi)
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        X* - x(i)
+    </th>
+</tr>
+</thead>
+<tbody>
+    {% for x in la_x_list %}
+        <tr>
+            <th scope="row">
+                {{ forloop.counter }}
+            </th>
+            <td>
+                {{ x }}
+            </td>
+            <td>
+                {% get_value_from_list la_f_list forloop.counter0 %}
+            </td>
+            <td>
+                {% get_value_from_list la_omega_list forloop.counter0 %}
+            </td>
+            <td>
+                {% get_value_from_list la_fdo_list forloop.counter0 %}
+            </td>
+            <td>
+                {% get_value_from_list la_xlast_list forloop.counter0 %}
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+&#9650; = <input type="text" value="{{ la_precision }}" readonly>
+
+<h3>Метод Лагранжа (б):</h3>
+<table class="table table-striped table-dark"
+style="text-align: center;">
+<thead class="thead-dark">
+<tr>
+    <th scope="col">i</th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        x(i)
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        f(i)
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        w4(xi)
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        fi/w4(xi)
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        X* - x(i)
+    </th>
+</tr>
+</thead>
+<tbody>
+    {% for x in lb_x_list %}
+        <tr>
+            <th scope="row">
+                {{ forloop.counter }}
+            </th>
+            <td>
+                {{ x }}
+            </td>
+            <td>
+                {% get_value_from_list lb_f_list forloop.counter0 %}
+            </td>
+            <td>
+                {% get_value_from_list lb_omega_list forloop.counter0 %}
+            </td>
+            <td>
+                {% get_value_from_list lb_fdo_list forloop.counter0 %}
+            </td>
+            <td>
+                {% get_value_from_list lb_xlast_list forloop.counter0 %}
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+&#9650; = <input type="text" value="{{ lb_precision }}" readonly>
+
+<h3>Метод Ньютона (а):</h3>
+<table class="table table-striped table-dark"
+style="text-align: center;">
+<thead class="thead-dark">
+<tr>
+    <th scope="col">i</th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        x(i)
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        f(i)
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        f(xi, xi+1)
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        f(xi, xi+1, xi+2)
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        f(x0, x1, x2, x3)
+    </th>
+</tr>
+</thead>
+<tbody>
+    {% for x in na_x_list %}
+        <tr>
+            <th scope="row">
+                {{ forloop.counter }}
+            </th>
+            <td>
+                {{ x }}
+            </td>
+            <td>
+                {% get_value_from_list na_f_list forloop.counter0 %}
+            </td>
+            <td>
+                {% if not forloop.last %}
+                    {% get_value_from_list na_fx_list forloop.counter0 %}
+                {% endif %}
+            </td>
+            <td>
+                {% if forloop.counter0 == 0 or forloop.counter0 == 1 %}
+                    {% get_value_from_list na_fxx_list forloop.counter0 %}
+                {% endif %}
+            </td>
+            <td>
+                {% if forloop.first %}
+                    {% get_value_from_list na_fxxx_list forloop.counter0 %}
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+&#9650; = <input type="text" value="{{ na_precision }}" readonly>
+
+<h3>Метод Ньютона (а):</h3>
+<table class="table table-striped table-dark"
+style="text-align: center;">
+<thead class="thead-dark">
+<tr>
+    <th scope="col">i</th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        x(i)
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        f(i)
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        f(xi, xi+1)
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        f(xi, xi+1, xi+2)
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        f(x0, x1, x2, x3)
+    </th>
+</tr>
+</thead>
+<tbody>
+    {% for x in nb_x_list %}
+        <tr>
+            <th scope="row">
+                {{ forloop.counter }}
+            </th>
+            <td>
+                {{ x }}
+            </td>
+            <td>
+                {% get_value_from_list nb_f_list forloop.counter0 %}
+            </td>
+            <td>
+                {% if not forloop.last %}
+                    {% get_value_from_list nb_fx_list forloop.counter0 %}
+                {% endif %}
+            </td>
+            <td>
+                {% if forloop.counter0 == 0 or forloop.counter0 == 1 %}
+                    {% get_value_from_list nb_fxx_list forloop.counter0 %}
+                {% endif %}
+            </td>
+            <td>
+                {% if forloop.first %}
+                    {% get_value_from_list nb_fxxx_list forloop.counter0 %}
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+&#9650; = <input type="text" value="{{ nb_precision }}" readonly>
+{% endblock content %}
