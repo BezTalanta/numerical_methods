@@ -105,3 +105,25 @@ def newtone_get_table(x1, x2, x3, x4, first_part_letter: str):
         f'n{first_part_letter}_fxxx_list': fxxx_list,
         f'n{first_part_letter}_precision': round(precision, 5),
     }
+
+
+def run_through_32():
+    X = [
+        1.5, # My variant and example
+    ]
+
+    x_list = [0.0, 1.0, 2.0, 3.0, 4.0]
+    f_list = [0.0, 1.8415, 2.9093, 3.1411, 3.2432]
+    # x_list = [0.0, 1.0, 2.0, 3.0, 5.0]
+    # f_list = [0.0, 0.45345, 0.52360, 0.0, -2.2672]
+
+    h_list = [x_list[i] - x_list[i - 1] for i in range(1, len(x_list))]
+
+    print(h_list)
+
+    c_list = [0.0, -0.44949, -0.52299, 0.03344]
+    b_list = [(f_list[i] - f_list[i - 1])/h_list[i] -
+              1/3 * h_list[i] * (c_list[i + 1] + 2 * c_list[i])
+              for i in range(1, len(f_list) - 1)]
+    d_list = [(c_list[i + 1] - c_list[i])/3*h_list[i]
+              for i in range(1, len(f_list) - 1)]

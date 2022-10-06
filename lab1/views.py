@@ -39,6 +39,11 @@ class Lab11(views.View):
                 })
             request.session['size'] = request.POST['size']
             return render(request, 'enter_matrix.html', {
+                #
+                # **generate_test(10, 1, 1, 2, 10, 1, 2, 2, 10, rows=3, cols=3).to_html('x'),
+                # **generate_test(12, 13, 14, rows=3, cols=1).to_html('b'),
+                #
+
                 **rowcol(int(request.POST['size'])),
                 'b_is_required': True,
                 'next_url': reverse('11'),
@@ -84,6 +89,9 @@ class Lab12(views.View):
                 return redirect(reverse('12'))
             request.session['size'] = request.POST['size']
             return render(request, 'enter_matrix.html', {
+                # **generate_test(8, -2, 0, 0, -1, 6, -2, 0, 0, 2, 10, -4, 0, 0, -1, 6, rows=4, cols=4).to_html('x'),
+                # **generate_test(6, 3, 8, 5, rows=4, cols=1).to_html('b'),
+
                 **rowcol(int(request.POST['size'])),
                 'b_is_required': True,
                 'next_url': reverse('12'),
@@ -189,7 +197,7 @@ class Lab14(views.View):
                 'next_url': reverse('14'),
 
                 # Example
-                **(generate_test(4, 2, 1, 2, 5, 3, 1, 3, 6, rows=3, cols=3).to_html('x')),
+                # **(generate_test(4, 2, 1, 2, 5, 3, 1, 3, 6, rows=3, cols=3).to_html('x')),
                 #
             })
         else:
