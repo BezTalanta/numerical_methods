@@ -57,7 +57,7 @@ def fill_matrix(context, row, letter, col):
     key = f'{row}{letter}{col}'
     if context.get(key, False) is not False:
         return context[key]
-    return random.randint(0, 10)
+    return random.randint(1, 10)
 
 @register.simple_tag(takes_context=True)
 def debug_print(context):

@@ -1,1 +1,200 @@
 {% extends "base.html" %}
+
+{% block title %}
+3.2
+{% endblock title %}
+
+{% block style %}
+<style>
+
+</style>
+{% endblock style %}
+
+{% block content %}
+<h3>Построить кубический сплайн для функции, заданной в узлах интерполяции</h3>
+<h5>
+    Построить кубический сплайн для функции, заданной в узлах интерполяции, предполагая, что сплайн имеет нулевую кривизну. Вычислить значение функции в точках.
+</h5>
+<table class="table table-striped table-dark"
+style="text-align: center;">
+<thead class="thead-dark">
+<tr>
+    <th scope="col">i</th>
+    <th scope="col">
+        0
+    </th>
+    <th scope="col">
+        1
+    </th>
+    <th scope="col">
+        2
+    </th>
+    <th scope="col">
+        3
+    </th>
+    <th scope="col">
+        4
+    </th>
+</tr>
+</thead>
+<tbody>
+    <tr>
+        <th scope="row">
+            x<sub>i</sub>
+        </th>
+        <td>
+            {{ x_list.0 }}
+        </td>
+        <td>
+            {{ x_list.1 }}
+        </td>
+        <td>
+            {{ x_list.2 }}
+        </td>
+        <td>
+            {{ x_list.3 }}
+        </td>
+        <td>
+            {{ x_list.4 }}
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">
+            f<sub>i</sub>
+        </th>
+        <td>
+            {{ f_list.0 }}
+        </td>
+        <td>
+            {{ f_list.1 }}
+        </td>
+        <td>
+            {{ f_list.2 }}
+        </td>
+        <td>
+            {{ f_list.3 }}
+        </td>
+        <td>
+            {{ f_list.4 }}
+        </td>
+    </tr>
+</tbody>
+</table>
+
+<table class="table table-striped table-dark"
+style="text-align: center;">
+<thead class="thead-dark">
+<tr>
+    <th scope="col">i</th>
+    <th scope="col">
+        [x<sub>i-1</sub>,x<sub>i</sub>]
+    </th>
+    <th scope="col">
+        a<sub>i</sub>
+    </th>
+    <th scope="col">
+        b<sub>i</sub>
+    </th>
+    <th scope="col">
+        c<sub>i</sub>
+    </th>
+    <th scope="col">
+        d<sub>i</sub>
+    </th>
+</tr>
+</thead>
+<tbody>
+    <tr>
+        <th scope="row">
+            1
+        </th>
+        <td>
+            [0,1]
+        </td>
+        <td>
+            {{ f_list.0 }}
+        </td>
+        <td>
+            {{ b_list.0 }}
+        </td>
+        <td>
+            {{ c_list.0 }}
+        </td>
+        <td>
+            {{ d_list.0 }}
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">
+            2
+        </th>
+        <td>
+            [1,2]
+        </td>
+        <td>
+            {{ f_list.1 }}
+        </td>
+        <td>
+            {{ b_list.1 }}
+        </td>
+        <td>
+            {{ c_list.1 }}
+        </td>
+        <td>
+            {{ d_list.1 }}
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">
+            3
+        </th>
+        <td>
+            [2,3]
+        </td>
+        <td>
+            {{ f_list.2 }}
+        </td>
+        <td>
+            {{ b_list.2 }}
+        </td>
+        <td>
+            {{ c_list.2 }}
+        </td>
+        <td>
+            {{ d_list.2 }}
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">
+            4
+        </th>
+        <td>
+            [3,4]
+        </td>
+        <td>
+            {{ f_list.3 }}
+        </td>
+        <td>
+            {{ b_list.3 }}
+        </td>
+        <td>
+            {{ c_list.3 }}
+        </td>
+        <td>
+            {{ d_list.3 }}
+        </td>
+    </tr>
+</tbody>
+</table>
+
+<h3>
+    f(x) = {{ f_list.1 }} +
+        {{ b_list.1 }}(x - 1) +
+        {{ c_list.1 }}(x - 1)<sup>2</sup> +
+        {{ d_list.1 }}(x - 1)<sup>3</sup>
+</h3>
+
+<h3>
+    f({{ X }}) = {{ res }}
+</h3>
+{% endblock content %}

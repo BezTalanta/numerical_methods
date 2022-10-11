@@ -5,8 +5,12 @@ from django.urls import reverse
 from django import views
 
 from .utils import (
+    # 1
     lagrang_get_table,
     newtone_get_table,
+
+    # 2
+    run_through_32,
 )
 
 class Lab31(views.View):
@@ -30,7 +34,8 @@ class Lab31(views.View):
 
 class Lab32(views.View):
     def get(self, request):
-        return redirect(reverse('32'))
+        # run_through_32()
+        # return redirect(reverse('home'))
         return render(request, 'lab32/lab32.html', {
-
+            **run_through_32(),
         })

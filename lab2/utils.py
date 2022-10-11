@@ -81,7 +81,6 @@ def simple_iterations(eps):
         'iter_phi_list': phi_list,
     }
 
-
 '''
      x1x2
     e     + x1 - 4 = 0
@@ -90,17 +89,29 @@ def simple_iterations(eps):
 
     1.5 < x1(x) < 2
     0.5 < x2(y) < 1.0
+
+    phi1:
+        y: phi1 = ln(4/x - 1)
+    phi2:
+        x: phi2 = +- sqrt(4*y + 1)
 '''
 def hf1(x, y):
     return math.exp(x*y) + x - 4
 
+# def hf1(x, y):
+#     return 0.1 * x**2 + x + 0.2 * y**2 - 0.3
 
 def hdxf1(x, y):
     return y * math.exp(x*y) + 1
 
+# def hdxf1(x, y):
+#     return 0.2 * x + 1
 
 def hdyf1(x, y):
     return x * math.exp(x*y)
+
+# def hdyf1(x, y):
+#     return 0.4 * y
 
 '''
       2
@@ -110,18 +121,27 @@ def hdyf1(x, y):
 def hf2(x, y):
     return x**2 - 4*y - 1
 
+# def hf2(x, y):
+#     return 0.2 * x**2 + y - 0.1 * x * y - 0.7
 
 def hdxf2(x, y):
     return 2*x
 
+# def hdxf2(x, y):
+#     return 0.4 * x - 0.1 * y
 
 def hdyf2(x, y):
     return -4
+
+# def hdyf2(x, y):
+#     return 1 - 0.4 * x
 ''''''
 
-
 def hard_newtone_method(eps):
-    x_list: list[list[float]] = [[1.75, 0.75]]
+    x_list: list[list[float]] = [
+            [1.75, 0.75]
+            # [0.25, 0.75]
+        ]
     f_list: list[list[float]] = []
     dfx_list: list[list[float]] = []
     dfy_list: list[list[float]] = []
@@ -144,7 +164,9 @@ def hard_newtone_method(eps):
                            dfx_list[-1][1], f_list[-1][1], rows=2, cols=2)
 
         J = generate_test(dfx_list[-1][0], dfy_list[-1][0],
-                          dfx_list[-1][0], dfy_list[-1][1], rows=2, cols=2)
+                          dfx_list[-1][1], dfy_list[-1][1], rows=2, cols=2)
+
+        # print(J)
 
         deta1_list.append(A1.get_determinant())
         deta2_list.append(A2.get_determinant())
@@ -157,6 +179,8 @@ def hard_newtone_method(eps):
 
         status = max(x_list[-1][0] - x1k, x_list[-1][1] - x2k)
 
+    # print(x_list)
+
     return {
         'newtone_x_list': x_list,
         'newtone_f_list': f_list,
@@ -167,46 +191,77 @@ def hard_newtone_method(eps):
         'newtone_detj_list': detj_list,
     }
 
+# def hphi1(x, y):
+#     return 0.3 - 0.1 * x**2 - 0.2 * y**2
 
+# def hdxphi1(x, y):
+#     return 0.7 - 0.2 * x**2 + 0.1 * x * y
+
+# def hdxphi1(x, y):
+#     return -0.2 * x
+
+# def hdyphi1(x, y):
+#     return -0.4 * y
+
+# def hphi2(x, y):
+#     return 0.7 - 0.2 * x**2 + 0.1 * x * y
+
+# def hdxphi2(x, y):
+#     return -0.4 * x + 0.1 * y
+
+# def hdyphi2(x):
+#     return 0.1 * x
+
+'''
+    phi1:
+        y: phi1 = ln(4/x - 1)
+    phi2:
+        x: phi2 = +- sqrt(4*y + 1)
+
+'''
 def hphi1(x, y):
     return 4 - math.exp(x * y)
-
+    # return math.log(4/x - 1)
 
 def hdxphi1(x, y):
     return -y * math.exp(x * y)
 
-
-def hdyphii1(x, y):
+def hdyphi1(x, y):
     return -x * math.exp(x * y)
 
-def hphi2(x):
+def hphi2(x, y):
     return (x**2 - 1) / 4
+    # return math.sqrt(4*y + 1)
 
-
-def hdxphi2(x):
-    return 2 * x
-
+def hdxphi2(x, y):
+    return x / 2
 
 def hdyphi2():
     return 0
 
-
 def hard_iteration_method(eps):
-    q_part = 0.75 / 0.25
+    # q_part = 1 # 0.75 / 0.25
 
-    x_list: list[list[float]] = [[1.75, 0.75]]
+    x_list: list[list[float]] = [
+            [1.75, 0.75]
+            # [0.25, 0.75]  # example
+        ]
     phi_list: list[list[float]] = []
 
     status = float(eps) + 1
+    counter = 0
     while status > float(eps):
+        counter += 1
         phi_tmp: list[float] = [hphi1(x_list[-1][0], x_list[-1][1]),
-                                hphi2(x_list[-1][0])]
-        print(phi_tmp)
+                                hphi2(x_list[-1][0], x_list[-1][1])]
         phi_list.append(phi_tmp)
         x_list.append(phi_tmp)
+        if counter == 5:
+            break
+        print(counter, phi_tmp)
 
-        status = q_part * max(abs(x_list[-1][0] - x_list[-2][0]),
-                              abs(x_list[-1][1] - x_list[-2][1]))
+        status = max(abs(x_list[-1][0] - x_list[-2][0]),
+                            abs(x_list[-1][1] - x_list[-2][1]))
 
     return {
         'iter_x_list': x_list,

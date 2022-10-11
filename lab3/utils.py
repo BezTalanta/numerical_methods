@@ -112,18 +112,55 @@ def run_through_32():
         1.5, # My variant and example
     ]
 
-    x_list = [0.0, 1.0, 2.0, 3.0, 4.0]
-    f_list = [0.0, 1.8415, 2.9093, 3.1411, 3.2432]
-    # x_list = [0.0, 1.0, 2.0, 3.0, 5.0]
-    # f_list = [0.0, 0.45345, 0.52360, 0.0, -2.2672]
+    # x_list = [0.0, 1.0, 2.0, 3.0, 4.0]              # example
+    # f_list = [0.0, 1.8415, 2.9093, 3.1411, 3.2432]  # example
+    x_list = [0.0, 1.0, 2.0, 3.0, 5.0]
+    f_list = [0.0, 0.45345, 0.52360, 0.0, -2.2672]
 
     h_list = [x_list[i] - x_list[i - 1] for i in range(1, len(x_list))]
 
-    print(h_list)
+    # print('{0}c2 + {1}c3 = {2}'.format(
+    #         2*(h_list[0] + h_list[1]),
+    #         h_list[1],
+    #         3*((f_list[2] - f_list[1])/h_list[1] - (f_list[1] - f_list[0])/h_list[0])
+    #     )
+    # )
 
-    c_list = [0.0, -0.44949, -0.52299, 0.03344]
-    b_list = [(f_list[i] - f_list[i - 1])/h_list[i] -
-              1/3 * h_list[i] * (c_list[i + 1] + 2 * c_list[i])
+    # print('{0}c2 + {1}c3 + {2}c4 = {3}'.format(
+    #         h_list[1],
+    #         2*(h_list[1] + h_list[2]),
+    #         h_list[2],
+    #         3*((f_list[3] - f_list[2])/h_list[2] - (f_list[2] - f_list[1])/h_list[1])
+    #     )
+    # )
+
+    # print('{0}c3 + {1}c4 = {2}'.format(
+    #         h_list[2],
+    #         2*(h_list[2] + h_list[3]),
+    #         3*((f_list[4] - f_list[3])/h_list[3] - (f_list[3] - f_list[2])/h_list[2]),
+    #     )
+    # )
+
+    # c_list = [0.0, -0.44949, -0.52299, 0.03344] # example
+    c_list = [0.0, -0.20454, -0.33174, -0.24971]
+
+    b_list = [round((f_list[i] - f_list[i - 1])/h_list[i] -
+              1/3 * h_list[i] * (c_list[i] + 2 * c_list[i - 1]), 5)
               for i in range(1, len(f_list) - 1)]
-    d_list = [(c_list[i + 1] - c_list[i])/3*h_list[i]
+    b_list.append(round((f_list[4] - f_list[3])/h_list[3] - 2/3*h_list[3]*c_list[3], 5))
+    d_list = [round((c_list[i] - c_list[i - 1])/3*h_list[i], 5)
               for i in range(1, len(f_list) - 1)]
+    d_list.append(round(-c_list[3]/3*h_list[3], 5))
+
+    end_f_func = lambda x: round(f_list[1] + b_list[1] * (x - 1) + \
+            c_list[1] * ((x - 1)**2) + d_list[1] * ((x - 1)**3), 5)
+
+    return {
+        'x_list': x_list,
+        'f_list': f_list,
+        'b_list': b_list,
+        'c_list': c_list,
+        'd_list': d_list,
+        'X': X[0],
+        'res': end_f_func(X[0]),
+    }
