@@ -1,5 +1,7 @@
 import math
 
+# Ratio uses for round functions
+ROUNDING_RATIO = 4
 
 def f(x):
     return x * math.cos(x)
@@ -163,4 +165,64 @@ def run_through_32():
         'd_list': d_list,
         'X': X[0],
         'res': end_f_func(X[0]),
+    }
+
+
+def run_through_33():
+    # Which variant will be using, 0 - mine, 1 - example
+    select_variant: int = 0
+
+    x_list = [
+        [-1, 0, 1, 2, 3, 5], # my variant
+        [0, 1.7, 3.4, 5.1, 6.8, 8.5] # example
+    ][select_variant]
+    y_list = [
+        [-0.86603, 0, 0.86603, 1, 0, -4.3301], # my variant
+        [0, 1.3038, 1.8439, 2.2583, 2.6077, 2.9155] # example
+    ][select_variant]
+
+    # N + 1
+    u1 = 6
+    # parametr with a0 at the bottom line
+    u2 = sum(x_list)
+    # parametr with a1 at the upper line
+    v1 = u2
+    # parametr with a1 at the bottom line
+    v2 = sum([round(x**2, ROUNDING_RATIO) for x in x_list])
+    # parametr after equal operator at the upper line
+    c1 = sum(y_list)
+    # at the bottom line
+    c2 = sum([round(x_list[i] * y_list[i], ROUNDING_RATIO) for i in range(len(x_list))])
+
+    a1 = round((u1 * c2 - u2 * c1) / (u1 * v2 - u2 * v1), ROUNDING_RATIO)
+    a0 = round((c1 - v1 * a1) / u1, ROUNDING_RATIO)
+
+    F1_list = [round(a0 + a1 * x, ROUNDING_RATIO) for x in x_list]
+    miss_sum1 = round(sum([(F1_list[i] - y_list[i])**2 for i in range(len(F1_list))]), ROUNDING_RATIO)
+
+    a2: float = [
+        0.3284, # my variant
+        -0.0355,
+    ][select_variant]
+    a1: float = [
+        1.0213, # my variant
+        0.6193,
+    ][select_variant]
+    a0: float = [
+        0.3284, # my variant
+        0.1295,
+    ][select_variant]
+
+    F2_list = [round(a0 + a1 * x + a2 * x**2, ROUNDING_RATIO) for x in x_list]
+    miss_sum2 = round(sum(
+            [(F2_list[i] - y_list[i])**2 for i in range(len(F2_list))]), ROUNDING_RATIO
+        )
+
+    return {
+        'x_list': x_list,
+        'y_list': y_list,
+        'f1_list': F1_list,
+        'miss1': miss_sum1,
+        'f2_list': F2_list,
+        'miss2': miss_sum2,
     }

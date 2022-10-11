@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+
+{% block title %}
+3.3
+{% endblock title %}
+{% block style %}
+
+{% endblock style %}
+
+{% block content %}
+<h3>Для таблично заданной функции путем решения нормальной системы МНК найти приближающие многочлены</h3>
+<h5>
+    Для таблично заданной функции путем решения нормальной системы МНК найти приближающие многочлены a) 1-ой  и б) 2-ой степени. Для каждого из приближающих многочленов вычислить сумму квадратов ошибок. Построить графики приближаемой функции и приближающих многочленов.
+</h5>
+
+<table class="table table-striped table-dark"
+style="text-align: center;">
+<thead class="thead-dark">
+<tr>
+    <th scope="col">i</th>
+    <th scope="col">
+        0
+    </th>
+    <th scope="col">
+        1
+    </th>
+    <th scope="col">
+        2
+    </th>
+    <th scope="col">
+        3
+    </th>
+    <th scope="col">
+        4
+    </th>
+    <th scope="col">
+        5
+    </th>
+</tr>
+</thead>
+<tbody>
+    <tr>
+        <th scope="row">
+            x<sub>i</sub>
+        </th>
+        <td>
+            {{ x_list.0 }}
+        </td>
+        <td>
+            {{ x_list.1 }}
+        </td>
+        <td>
+            {{ x_list.2 }}
+        </td>
+        <td>
+            {{ x_list.3 }}
+        </td>
+        <td>
+            {{ x_list.4 }}
+        </td>
+        <td>
+            {{ x_list.5 }}
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">
+            y<sub>i</sub>
+        </th>
+        <td>
+            {{ y_list.0 }}
+        </td>
+        <td>
+            {{ y_list.1 }}
+        </td>
+        <td>
+            {{ y_list.2 }}
+        </td>
+        <td>
+            {{ y_list.3 }}
+        </td>
+        <td>
+            {{ y_list.4 }}
+        </td>
+        <td>
+            {{ y_list.5 }}
+        </td>
+    </tr>
+</tbody>
+</table>
+
+<table class="table table-striped table-dark"
+style="text-align: center;">
+<thead class="thead-dark">
+<tr>
+    <th scope="col">i</th>
+    <th scope="col">
+        0
+    </th>
+    <th scope="col">
+        1
+    </th>
+    <th scope="col">
+        2
+    </th>
+    <th scope="col">
+        3
+    </th>
+    <th scope="col">
+        4
+    </th>
+    <th scope="col">
+        5
+    </th>
+</tr>
+</thead>
+<tbody>
+    <tr>
+        <th scope="row">
+            x<sub>i</sub>
+        </th>
+        <td>
+            {{ x_list.0 }}
+        </td>
+        <td>
+            {{ x_list.1 }}
+        </td>
+        <td>
+            {{ x_list.2 }}
+        </td>
+        <td>
+            {{ x_list.3 }}
+        </td>
+        <td>
+            {{ x_list.4 }}
+        </td>
+        <td>
+            {{ x_list.5 }}
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">
+            F<sub>i</sub>(x<sub>i</sub>)
+        </th>
+        <td>
+            {{ f1_list.0 }}
+        </td>
+        <td>
+            {{ f1_list.1 }}
+        </td>
+        <td>
+            {{ f1_list.2 }}
+        </td>
+        <td>
+            {{ f1_list.3 }}
+        </td>
+        <td>
+            {{ f1_list.4 }}
+        </td>
+        <td>
+            {{ f1_list.5 }}
+        </td>
+    </tr>
+</tbody>
+</table>
+
+<h3>&#934; = {{ miss1 }}</h3>
+
+<table class="table table-striped table-dark"
+style="text-align: center;">
+<thead class="thead-dark">
+<tr>
+    <th scope="col">i</th>
+    <th scope="col">
+        0
+    </th>
+    <th scope="col">
+        1
+    </th>
+    <th scope="col">
+        2
+    </th>
+    <th scope="col">
+        3
+    </th>
+    <th scope="col">
+        4
+    </th>
+    <th scope="col">
+        5
+    </th>
+</tr>
+</thead>
+<tbody>
+    <tr>
+        <th scope="row">
+            x<sub>i</sub>
+        </th>
+        <td>
+            {{ x_list.0 }}
+        </td>
+        <td>
+            {{ x_list.1 }}
+        </td>
+        <td>
+            {{ x_list.2 }}
+        </td>
+        <td>
+            {{ x_list.3 }}
+        </td>
+        <td>
+            {{ x_list.4 }}
+        </td>
+        <td>
+            {{ x_list.5 }}
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">
+            F<sub>2</sub>(x<sub>i</sub>)
+        </th>
+        <td>
+            {{ f2_list.0 }}
+        </td>
+        <td>
+            {{ f2_list.1 }}
+        </td>
+        <td>
+            {{ f2_list.2 }}
+        </td>
+        <td>
+            {{ f2_list.3 }}
+        </td>
+        <td>
+            {{ f2_list.4 }}
+        </td>
+        <td>
+            {{ f2_list.5 }}
+        </td>
+    </tr>
+</tbody>
+</table>
+
+<h3>&#934; = {{ miss2 }}</h3>
+
+{% endblock content %}
