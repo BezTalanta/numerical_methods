@@ -82,6 +82,14 @@ def simple_iterations(eps):
     }
 
 '''
+0 - first my variant
+1 - example
+2 - second my variant
+'''
+H_SELECT_VARIANT = 2
+
+'''
+    SELECT: 1
      x1x2
     e     + x1 - 4 = 0
       2
@@ -91,27 +99,43 @@ def simple_iterations(eps):
     0.5 < x2(y) < 1.0
 
     phi1:
-        y: phi1 = ln(4/x - 1)
+        4 - exp(x1*x2)
     phi2:
-        x: phi2 = +- sqrt(4*y + 1)
+        (x**2 - 1) / 4
+'''
+'''
+    SELECT: 2
+    x1 - cos(x2) - 2
+    x2 - sin(x1) - 2
+
+    phi1:
+        2 + cos(x2)
+    phi2:
+        2 + sin(x1)
 '''
 def hf1(x, y):
-    return math.exp(x*y) + x - 4
-
-# def hf1(x, y):
-#     return 0.1 * x**2 + x + 0.2 * y**2 - 0.3
+    if H_SELECT_VARIANT == 0:
+        return math.exp(x*y) + x - 4
+    elif H_SELECT_VARIANT == 1:
+        return 0.1 * x**2 + x + 0.2 * y**2 - 0.3
+    else:
+        return x - math.cos(y) - 2
 
 def hdxf1(x, y):
-    return y * math.exp(x*y) + 1
-
-# def hdxf1(x, y):
-#     return 0.2 * x + 1
+    if H_SELECT_VARIANT == 0:
+        return y * math.exp(x*y) + 1
+    elif H_SELECT_VARIANT == 1:
+        return 0.2 * x + 1
+    else:
+        return 1
 
 def hdyf1(x, y):
-    return x * math.exp(x*y)
-
-# def hdyf1(x, y):
-#     return 0.4 * y
+    if H_SELECT_VARIANT == 0:
+        return x * math.exp(x*y)
+    elif H_SELECT_VARIANT == 1:
+        return 0.4 * y
+    else:
+        return math.sin(y)
 
 '''
       2
@@ -119,28 +143,37 @@ def hdyf1(x, y):
 
 '''
 def hf2(x, y):
-    return x**2 - 4*y - 1
-
-# def hf2(x, y):
-#     return 0.2 * x**2 + y - 0.1 * x * y - 0.7
+    if H_SELECT_VARIANT == 0:
+        return x**2 - 4*y - 1
+    elif H_SELECT_VARIANT == 1:
+        return 0.2 * x**2 + y - 0.1 * x * y - 0.7
+    else:
+        return y - math.sin(x) - 2
 
 def hdxf2(x, y):
-    return 2*x
-
-# def hdxf2(x, y):
-#     return 0.4 * x - 0.1 * y
+    if H_SELECT_VARIANT == 0:
+        return 2*x
+    elif H_SELECT_VARIANT == 1:
+        return 0.4 * x - 0.1 * y
+    else:
+        return - math.cos(x)
 
 def hdyf2(x, y):
-    return -4
-
-# def hdyf2(x, y):
-#     return 1 - 0.4 * x
+    if H_SELECT_VARIANT == 0:
+        return -4
+    elif H_SELECT_VARIANT == 1:
+        return 1 - 0.1 * x
+    else:
+        return 1
 ''''''
 
 def hard_newtone_method(eps):
     x_list: list[list[float]] = [
-            [1.75, 0.75]
-            # [0.25, 0.75]
+            [
+                [1.75, 0.75],
+                [0.25, 0.75],
+                [1.05, 2.8]
+            ][H_SELECT_VARIANT]
         ]
     f_list: list[list[float]] = []
     dfx_list: list[list[float]] = []
@@ -166,8 +199,6 @@ def hard_newtone_method(eps):
         J = generate_test(dfx_list[-1][0], dfy_list[-1][0],
                           dfx_list[-1][1], dfy_list[-1][1], rows=2, cols=2)
 
-        # print(J)
-
         deta1_list.append(A1.get_determinant())
         deta2_list.append(A2.get_determinant())
         detj_list.append(J.get_determinant())
@@ -178,8 +209,6 @@ def hard_newtone_method(eps):
             )
 
         status = max(x_list[-1][0] - x1k, x_list[-1][1] - x2k)
-
-    # print(x_list)
 
     return {
         'newtone_x_list': x_list,
@@ -214,37 +243,47 @@ def hard_newtone_method(eps):
 
 '''
     phi1:
-        y: phi1 = ln(4/x - 1)
+        2 + cos(x2)
     phi2:
-        x: phi2 = +- sqrt(4*y + 1)
-
+        2 + sin(x1)
 '''
 def hphi1(x, y):
-    return 4 - math.exp(x * y)
-    # return math.log(4/x - 1)
+    if H_SELECT_VARIANT == 0:
+        return 4 - math.exp(x * y)
+    elif H_SELECT_VARIANT == 1:
+        return 0.3 - 0.1 * x**2 - 0.2 * y**2
+    else:
+        return 2 + math.cos(y)
 
-def hdxphi1(x, y):
-    return -y * math.exp(x * y)
+# def hdxphi1(x, y):
+#     return -y * math.exp(x * y)
 
-def hdyphi1(x, y):
-    return -x * math.exp(x * y)
+# def hdyphi1(x, y):
+#     return -x * math.exp(x * y)
 
 def hphi2(x, y):
-    return (x**2 - 1) / 4
-    # return math.sqrt(4*y + 1)
+    if H_SELECT_VARIANT == 0:
+        return (x**2 - 1) / 4
+    elif H_SELECT_VARIANT == 1:
+        return 0.7 - 0.2 * x**2 + 0.1 * x * y
+    else:
+        return 2 + math.sin(x)
 
-def hdxphi2(x, y):
-    return x / 2
+# def hdxphi2(x, y):
+#     return x / 2
 
-def hdyphi2():
-    return 0
+# def hdyphi2():
+#     return 0
 
 def hard_iteration_method(eps):
     # q_part = 1 # 0.75 / 0.25
 
     x_list: list[list[float]] = [
-            [1.75, 0.75]
-            # [0.25, 0.75]  # example
+            [
+                [1.75, 0.75],
+                [0.25, 0.75],  # example
+                [1.05, 2.8]
+            ][H_SELECT_VARIANT]
         ]
     phi_list: list[list[float]] = []
 
@@ -252,13 +291,10 @@ def hard_iteration_method(eps):
     counter = 0
     while status > float(eps):
         counter += 1
-        phi_tmp: list[float] = [hphi1(x_list[-1][0], x_list[-1][1]),
-                                hphi2(x_list[-1][0], x_list[-1][1])]
+        phi_tmp: list[float] = [round(hphi1(x_list[-1][0], x_list[-1][1]), 5),
+                                round(hphi2(x_list[-1][0], x_list[-1][1]), 5)]
         phi_list.append(phi_tmp)
         x_list.append(phi_tmp)
-        if counter == 5:
-            break
-        print(counter, phi_tmp)
 
         status = max(abs(x_list[-1][0] - x_list[-2][0]),
                             abs(x_list[-1][1] - x_list[-2][1]))

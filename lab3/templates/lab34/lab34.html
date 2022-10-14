@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}
+3.4
+{% endblock title %}
+{% block style %}
+
+{% endblock style %}
+{% block content %}
+<h2>Вычислить первую и вторую производную от таблично заданной функции в точке</h2>
+<table class="table table-striped table-dark"
+style="text-align: center;">
+<thead class="thead-dark">
+<tr>
+    <th scope="col">i</th>
+    <th scope="col">
+        0
+    </th>
+    <th scope="col">
+        1
+    </th>
+    <th scope="col">
+        2
+    </th>
+    <th scope="col">
+        3
+    </th>
+    <th scope="col">
+        4
+    </th>
+</tr>
+</thead>
+<tbody>
+    <tr>
+        <th scope="row">
+            x<sub>i</sub>
+        </th>
+        <td>
+            {{ x_list.0 }}
+        </td>
+        <td>
+            {{ x_list.1 }}
+        </td>
+        <td>
+            {{ x_list.2 }}
+        </td>
+        <td>
+            {{ x_list.3 }}
+        </td>
+        <td>
+            {{ x_list.4 }}
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">
+            y<sub>i</sub>
+        </th>
+        <td>
+            {{ y_list.0 }}
+        </td>
+        <td>
+            {{ y_list.1 }}
+        </td>
+        <td>
+            {{ y_list.2 }}
+        </td>
+        <td>
+            {{ y_list.3 }}
+        </td>
+        <td>
+            {{ y_list.4 }}
+        </td>
+    </tr>
+</tbody>
+</table>
+
+<h4>
+    y<sub>l</sub>({{ X }}) = {{ y_left }}
+</h4>
+
+<h4>
+    y<sub>r</sub>({{ X }}) = {{ y_right }}
+</h4>
+
+<h4>
+    y<sup>'</sup>({{ X }}) = {{ f_der }}
+</h4>
+
+<h4>
+    y<sup>''</sup>({{ X }}) = {{ s_der }}
+</h4>
+
+{% endblock content %}

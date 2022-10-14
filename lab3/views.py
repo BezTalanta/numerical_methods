@@ -14,6 +14,9 @@ from .utils import (
 
     # 3
     run_through_33,
+
+    # 4
+    run_through_34
 )
 
 class Lab31(views.View):
@@ -46,3 +49,15 @@ class Lab33(views.View):
         return render(request, 'lab33/lab33.html',{
             **run_through_33(),
         })
+
+
+class Lab34(views.View):
+    def get(self, request):
+        return render(request, 'lab34/lab34.html', {
+            **run_through_34()
+        })
+
+
+class Lab35(views.View):
+    def get(self, request):
+        return redirect(reverse('home'))

@@ -226,3 +226,61 @@ def run_through_33():
         'f2_list': F2_list,
         'miss2': miss_sum2,
     }
+
+
+def run_through_34():
+    '''
+        0 - example
+        1 - mine
+    '''
+    select_variant = 1
+    X = [
+        0.2,
+        0.4
+    ][select_variant]
+    x_list = [
+        [0.0, 0.1, 0.2, 0.3, 0.4],
+        [0, 0.2, 0.4, 0.6, 0.8]
+    ][select_variant]
+    y_list = [
+        [1, 1.1052, 1.2214, 1.3499, 1.4918],
+        [0, 0.048856, 0.23869, 0.65596, 1.4243]
+    ][select_variant]
+
+    x_index = 2
+    yleft = (y_list[x_index] - y_list[x_index - 1]) / \
+        (x_list[x_index] - x_list[x_index - 1])
+
+    yright = (y_list[x_index + 1] - y_list[x_index]) / \
+        (x_list[x_index + 1] - x_list[x_index])
+
+    first_derivative = (y_list[x_index] - y_list[x_index - 1]) / \
+            (x_list[x_index] - x_list[x_index - 1]) + \
+            ( \
+                (y_list[x_index + 1] - y_list[x_index]) / \
+                (x_list[x_index + 1] - x_list[x_index]) - \
+                (y_list[x_index] - y_list[x_index - 1]) / \
+                (x_list[x_index] - x_list[x_index - 1])
+            ) * (2 * X - x_list[x_index - 1] - x_list[x_index]) / \
+            (x_list[x_index + 1] - x_list[x_index - 1])
+
+    second_derivative = 2 * (
+            (y_list[x_index + 1] - y_list[x_index]) / \
+            (x_list[x_index + 1] - x_list[x_index]) - \
+            (y_list[x_index] - y_list[x_index - 1]) / \
+            (x_list[x_index] - x_list[x_index - 1])
+        ) / (x_list[x_index + 1] - x_list[x_index - 1])
+
+    return {
+        'x_list': x_list,
+        'y_list': y_list,
+        'X': X,
+        'y_left': round(yleft, ROUNDING_RATIO),
+        'y_right': round(yright, ROUNDING_RATIO),
+        'f_der': round(first_derivative, ROUNDING_RATIO),
+        's_der': round(second_derivative, ROUNDING_RATIO),
+    }
+
+
+def run_through_35():
+    pass
