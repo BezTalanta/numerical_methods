@@ -39,10 +39,17 @@ class Lab11(views.View):
                 })
             request.session['size'] = request.POST['size']
             return render(request, 'enter_matrix.html', {
-                #
+                # Hardcoded examples
                 # **generate_test(10, 1, 1, 2, 10, 1, 2, 2, 10, rows=3, cols=3).to_html('x'),
                 # **generate_test(12, 13, 14, rows=3, cols=1).to_html('b'),
+                # 1 1 1
+
+                # 28 var
+                # **generate_test(1, 4, -9, 7, 2, -2, -2, 3, -1, 3, -9, -1, -5, 2, 2, 1, rows=4, cols=4).to_html('x'),
+                # **generate_test(-67, -57, -26, 52, rows=4, cols=1).to_html('b'),
                 #
+
+                # Hardcoded examples
 
                 **rowcol(int(request.POST['size'])),
                 'b_is_required': True,
@@ -65,11 +72,15 @@ class Lab11(views.View):
             inv = a_matrix.get_inversed_matrix()
             inv.normalize_values(2, True)
 
+            check = L * U
+            check.normalize_values(2)
+
             return render(request, 'lab11/result.html', {
                 'matrix_a': a_matrix,
                 'matrix_ab': b_matrix,
                 'matrix_l': L,
                 'matrix_u': U,
+                'matrix_check': check,
                 'matrix_x': solve,
                 'det': det,
                 'inv': inv,
@@ -85,8 +96,10 @@ class Lab12(views.View):
 
     def post(self, request):
         if request.POST.get('size', False) is not False:
-            if int(request.POST['size']) < 1:
-                return redirect(reverse('12'))
+            if request.POST['size'] == '' or int(request.POST['size']) < 1:
+                return render(request, 'lab12/lab12.html', {
+                    'size_error_empty': True,
+                })
             request.session['size'] = request.POST['size']
             return render(request, 'enter_matrix.html', {
                 # **generate_test(8, -2, 0, 0, -1, 6, -2, 0, 0, 2, 10, -4, 0, 0, -1, 6, rows=4, cols=4).to_html('x'),
@@ -141,7 +154,7 @@ class Lab13(views.View):
             return render(request, 'enter_matrix.html', {
                 **rowcol(int(request.POST['size'])),
 
-                # Tests, have to be deleted
+                #
                 # **(generate_test(10, 1, 1, 2, 10, 1, 2, 2, 10, rows=3, cols=3).to_html('x')),
                 # **(generate_test(12, 13, 14, rows=3, cols=1).to_html('b')),
                 #
@@ -170,6 +183,7 @@ class Lab13(views.View):
                 'epsilons': epss,
             })
 
+# 0.3 for example
 class Lab14(views.View):
     def get(self, request):
         return render(request, 'lab14/lab14.html')
@@ -196,7 +210,7 @@ class Lab14(views.View):
                 **rowcol(int(request.POST['size'])),
                 'next_url': reverse('14'),
 
-                # Example
+                #
                 # **(generate_test(4, 2, 1, 2, 5, 3, 1, 3, 6, rows=3, cols=3).to_html('x')),
                 #
             })

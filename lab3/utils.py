@@ -282,5 +282,82 @@ def run_through_34():
     }
 
 
+SELECT_VARIANT_35 = 1
+def f(x):
+    if SELECT_VARIANT_35 == 0:
+        return x/(3*x + 4)**2
+    return 4*x**3 + x**2
+
+def generate_x(x0, xn, h):
+    result_list = [x0]
+    while result_list[-1] < xn:
+        result_list.append(result_list[-1] + h)
+    return result_list
+
+def square(h, y_list, x_list):
+    parts = []
+    for i in range(len(y_list) - 1):
+        parts.append(f((x_list[i] + x_list[i + 1]) / 2))
+    result = [0]
+    memory_sum = 0
+    for part in parts:
+        memory_sum += part
+        result.append(round(h * memory_sum, ROUNDING_RATIO + 1))
+    return result
+
+def trapezoid(h, y_list):
+    parts = [y_list[0] / 2]
+    for i in range(1, len(y_list) - 1):
+        parts.append(y_list[i])
+    parts.append(y_list[-1] / 2)
+    result = [0]
+    memory_sum = 0
+    for part in parts:
+        memory_sum += part
+        result.append(round(h * memory_sum, ROUNDING_RATIO + 1))
+    return result
+
+def simpson(h, y_list):
+    parts = []
+    for i in range(1, len(y_list) - 1, 2):
+        if i == 1:
+            parts.append(y_list[0] +(4 * y_list[i] + 2 * y_list[i + 1]))
+        else:
+            parts.append(4 * y_list[i] + 2 * y_list[i + 1])
+    parts[-1] += y_list[-1]
+    result = [0]
+    memory_sum = 0
+    for part in parts:
+        memory_sum += part
+        result.append(round(h/3 * memory_sum, ROUNDING_RATIO + 1))
+    return result
+
 def run_through_35():
-    pass
+    x0, xn = [
+        (-1, 1),
+        (1, 5)
+    ][SELECT_VARIANT_35]
+    h1, h2 = [
+        (0.5, 0.25),
+        (1, 0.5)
+    ][SELECT_VARIANT_35]
+
+    x_list1, x_list2 = generate_x(x0, xn, h1), generate_x(x0, xn, h2)
+    y_list1, y_list2 = [round(f(x), ROUNDING_RATIO + 1) for x in x_list1], \
+        [round(f(x), ROUNDING_RATIO + 1) for x in x_list2]
+
+    square_list1, square_list2 = square(h1, y_list1, x_list1), \
+        square(h2, y_list2, x_list2)
+
+    trapez_list1, trapez_list2 = trapezoid(h1, y_list1), \
+                        trapezoid(h2, y_list2)
+
+    simpson_list1, simpson_list2 = simpson(h1, y_list1), simpson(h2, y_list2)
+
+    print(square_list1, trapez_list1, simpson_list1, sep='\n', end='\n')
+    print(square_list2, trapez_list2, simpson_list2, sep='\n', end='\n')
+
+    real_solution = [
+        -0.16474,
+        665.33333,
+    ][SELECT_VARIANT_35]

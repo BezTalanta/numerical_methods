@@ -76,6 +76,20 @@ Your result
         {% endfor %}
     </div>
 
+    <h3>Проверка:</h3>
+    <div class="simple-matrix">
+        {% for row in matrix_check.data %}
+            {% for col in row %}
+                {% if forloop.first %}
+                    <input size="{{sz}}" type="text" value="{{ col }}" readonly>
+                {% else %}
+                    + <input size="{{sz}}" type="text" value="{{ col }}" readonly>
+                {% endif %}
+            {% endfor %}
+            <br>
+        {% endfor %}
+    </div>
+
     <h3>Полученные результаты x:</h3>
     <div class="simple-matrix">
         {% for row in matrix_x.data %}

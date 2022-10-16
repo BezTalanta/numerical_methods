@@ -16,7 +16,10 @@ from .utils import (
     run_through_33,
 
     # 4
-    run_through_34
+    run_through_34,
+
+    # 5
+    run_through_35,
 )
 
 class Lab31(views.View):
@@ -60,4 +63,5 @@ class Lab34(views.View):
 
 class Lab35(views.View):
     def get(self, request):
+        run_through_35()
         return redirect(reverse('home'))

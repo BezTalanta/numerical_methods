@@ -13,7 +13,12 @@
 {% block menu %}
 <form action="{% url '12' %}" method="post">
     {% csrf_token %}
-    <input type="text" name="size" placeholder="Enter your matrix size">
+    <input type="text" name="size"
+        {% if size_error_empty %}
+            style="color: red;"
+        {% endif %}
+        placeholder="Enter your matrix size"
+        value="{{ saved_size }}">
     <button type="submit" class="btn btn-primary">Calculate</button>
 </form>
 {% endblock menu %}
