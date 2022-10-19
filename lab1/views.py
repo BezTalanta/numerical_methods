@@ -299,7 +299,7 @@ class Lab15(views.View):
                 **rowcol(int(request.POST['size'])),
                 'next_url': reverse('15'),
 
-                # Example
+                # 0.01
                 # **(generate_test(1, 3, 1, 1, 1, 4, 4, 3, 1, rows=3, cols=3).to_html('x')),
                 #
             })

@@ -25,19 +25,19 @@ from .utils import (
 class Lab31(views.View):
     def get(self, request):
         return render(request, 'lab31/lab31.html', {
-            # Debugging
+            **lagrang_get_table(0, math.pi / 6,
+                                2 * math.pi / 6, 3 * math.pi / 6, 'a'),
+            **lagrang_get_table(0, math.pi / 6,
+                                5 * math.pi / 12, math.pi / 2, 'b'),
+            **newtone_get_table(0, math.pi / 6,
+                                2 * math.pi / 6, 3 * math.pi / 6, 'a'),
+            **newtone_get_table(0, math.pi / 6,
+                                5 * math.pi / 12, math.pi / 2, 'b'),
+
+            # Examples
             # **lagrang_get_table(0.1, 0.5, 0.9, 1.3, 'a'),
             # **newtone_get_table(0, 1, 2, 3, 'a'),
             #
-
-            **lagrang_get_table(0, math.pi / 6,
-                                2 * math.pi / 6, 3 * math.pi / 6, 'a'),
-            **lagrang_get_table(0, math.pi / 6,
-                                5 * math.pi / 12, math.pi / 2, 'b'),
-            **newtone_get_table(0, math.pi / 6,
-                                2 * math.pi / 6, 3 * math.pi / 6, 'a'),
-            **newtone_get_table(0, math.pi / 6,
-                                5 * math.pi / 12, math.pi / 2, 'b'),
         })
 
 
@@ -63,5 +63,6 @@ class Lab34(views.View):
 
 class Lab35(views.View):
     def get(self, request):
-        run_through_35()
-        return redirect(reverse('home'))
+        return render(request, 'lab35/lab35.html', {
+            **run_through_35()
+        })

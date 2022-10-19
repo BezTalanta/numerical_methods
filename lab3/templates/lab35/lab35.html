@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% load tags3 %}
+{% load tags %}
+
+{% block content %}
+<h2>Интеграл с шагом {{h1}}:</h2>
+<table class="table table-striped table-dark"
+style="text-align: center;">
+<thead class="thead-dark">
+<tr>
+    <th scope="col">i</th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        x<sub>i</sub>
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        y<sub>i</sub>
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;"
+        colspan="3">
+        ydx
+    </th>
+</tr>
+</thead>
+<tbody>
+    {% for x in x_list_1 %}
+        <tr>
+            <th scope="row">
+                {{ forloop.counter0 }}
+            </th>
+            <td>
+                {{ x }}
+            </td>
+            <td>
+                {% get_value_from_list y_list_1 forloop.counter0 %}
+            </td>
+            <td>
+                {% get_value_from_list square_list1 forloop.counter0 %}
+            </td>
+            <td>
+                {% get_value_from_list trap_list1 forloop.counter0 %}
+            </td>
+            <td>
+                {% output_simpson simp_list1 forloop.counter0 %}
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+
+<h2>Интеграл с шагом {{h2}}:</h2>
+<table class="table table-striped table-dark"
+style="text-align: center;">
+<thead class="thead-dark">
+<tr>
+    <th scope="col">i</th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        x<sub>i</sub>
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;">
+        y<sub>i</sub>
+    </th>
+    <th scope="col"
+        style="max-width: fit-content; min-width: 200px;"
+        colspan="3">
+        ydx
+    </th>
+</tr>
+</thead>
+<tbody>
+    {% for x in x_list_2 %}
+        <tr>
+            <th scope="row">
+                {{ forloop.counter0 }}
+            </th>
+            <td>
+                {{ x }}
+            </td>
+            <td>
+                {% get_value_from_list y_list_2 forloop.counter0 %}
+            </td>
+            <td>
+                {% get_value_from_list square_list2 forloop.counter0 %}
+            </td>
+            <td>
+                {% get_value_from_list trap_list2 forloop.counter0 %}
+            </td>
+            <td>
+                {% output_simpson simp_list2 forloop.counter0 %}
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+
+<h2>Уточним значение интеграла, используя метод Рунге-Ромберга-Ричардсона получим:</h2>
+<table class="table table-striped table-dark"
+style="text-align: center;">
+<thead class="thead-dark">
+<tr>
+    <th scope="col">F=a/b(integ)dx</th>
+    <th scope="col">
+        Точное значение
+    </th>
+    <th scope="col" colspan="3">
+        Абсолютная погрешность
+    </th>
+</tr>
+</thead>
+<tbody>
+    <tr>
+        <th scope="row" rowspan="2">
+
+        </th>
+        <td rowspan="2">
+            {{ real_solution }}
+        </td>
+        <td>
+            {{ rung_square }}
+        </td>
+        <td>
+            {{ rung_trapez }}
+        </td>
+        <td>
+            {{ rung_simpson }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ square_ratio }}
+        </td>
+        <td>
+            {{ trapez_ratio }}
+        </td>
+        <td>
+            {{ simpson_ratio }}
+        </td>
+    </tr>
+</tbody>
+</table>
+
+{% endblock content %}
